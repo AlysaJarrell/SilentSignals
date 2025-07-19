@@ -67,7 +67,7 @@ def stressed_dash():
 
 # this file path can be switched to process a different session easily
 
-featured_session =  "session_features/session_1.csv"
+featured_session =  "session_features/session_3.csv"
 emotion = predict_from_csv(featured_session)
 print("Predicted Emotion:", emotion)
 
