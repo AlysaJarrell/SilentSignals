@@ -60,7 +60,7 @@ label_encoder = LabelEncoder()
 session_features['emotion_encoded'] = label_encoder.fit_transform(session_features['emotion_first'])
 
 # Prepare input and target
-X = session_features[['dwell_time_mean', 'dwell_time_std', 'flight_time_mean', 'flight_time_std', 'error_sum', 'wpm_mean']]
+X = session_features[['dwell_time_mean', 'dwell_time_std', 'flight_time_mean', 'flight_time_std', 'error_count', 'wpm_mean']]
 y = session_features['emotion_encoded']
 
 # Train/test split
