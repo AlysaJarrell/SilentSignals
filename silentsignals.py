@@ -37,13 +37,17 @@ df.head()
 session_features = df.groupby('session_id').agg({
     'dwell_time': ['mean', 'std'],
     'flight_time': ['mean', 'std'],
-    'error': 'sum',
+    'error': lambda x: x.iloc[-1],
     'wpm': 'mean',
     'emotion': 'first'  # all rows in a session have the same emotion label
 }).reset_index()
 
 # Flatten multi-index column names
-session_features.columns = ['_'.join(col).strip('_') for col in session_features.columns.values]
+session_features.columns = [
+    f"{col[0]}_{col[1]}" if col[1] != '<lambda>' else f"{col[0]}_count"
+    for col in session_features.columns
+]
+session_features = session_features.reset_index()
 
 # Drop "Frustrated"  & "Tired" sessions before label encoding (to make the rest of the emotions more accurate)
 session_features = session_features[session_features['emotion_first'] != 'Frustrated']
